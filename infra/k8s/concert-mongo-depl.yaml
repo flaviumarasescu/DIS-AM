@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: concert-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: concert-mongo
+  template:
+    metadata:
+      labels:
+        app: concert-mongo
+    spec:
+      containers:
+        - name: concert-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: concert-mongo-service
+spec:
+  selector:
+    app: concert-mongo
+  ports:
+    - name: database
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

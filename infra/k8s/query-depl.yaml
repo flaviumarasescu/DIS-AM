@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: flaviumarasescu/as-query-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-service
+  labels:
+    job: query
+    app: query
+spec:
+  selector:
+    app: query
+  ports:
+    - name: query
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: query-monitor
+#   labels:
+#     release: prometheus
+#     app: prometheus
+# spec:
+#   jobLabel: query
+#   selector:
+#     matchLabels:
+#       app: query
+#   endpoints:
+#     - interval: 30s
+#       port: query
+#       path: /metrics

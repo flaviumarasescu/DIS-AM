@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>Student List</h1>
+    <ul>
+      {{#each students}}
+      <li>Name: {{this.name}}</li>
+      <li>Age: {{this.age}}</li>
+      <br />
+      {{/each}}
+    </ul>
+  </body>
+</html>

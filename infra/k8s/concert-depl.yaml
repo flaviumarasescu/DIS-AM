@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: concert-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: concert
+  template:
+    metadata:
+      labels:
+        app: concert
+    spec:
+      containers:
+        - name: concert
+          image: flaviumarasescu/as-concert-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: concert-service
+spec:
+  selector:
+    app: concert
+  ports:
+    - name: concert
+      protocol: TCP
+      port: 5001
+      targetPort: 5001

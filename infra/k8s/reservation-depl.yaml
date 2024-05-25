@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation
+  template:
+    metadata:
+      labels:
+        app: reservation
+    spec:
+      containers:
+        - name: reservation
+          image: flaviumarasescu/as-reservation-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-service
+spec:
+  selector:
+    app: reservation
+  ports:
+    - name: reservation
+      protocol: TCP
+      port: 5004
+      targetPort: 5004

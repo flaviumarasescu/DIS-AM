@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: flaviumarasescu/as-payment-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  labels:
+    job: payment
+    app: payment
+spec:
+  selector:
+    app: payment
+  ports:
+    - name: payment
+      protocol: TCP
+      port: 5002
+      targetPort: 5002
+---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: payment-monitor
+#   labels:
+#     release: prometheus
+#     app: prometheus
+# spec:
+#   jobLabel: payment
+#   selector:
+#     matchLabels:
+#       app: payment
+#   endpoints:
+#     - interval: 30s
+#       port: payment
+#       path: /metrics

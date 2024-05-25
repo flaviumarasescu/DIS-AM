@@ -1,0 +1,61 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: concerts.dev
+      http:
+        paths:
+          - path: /api/query/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: query-service
+                port:
+                  number: 5000
+          - path: /api/concert/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: concert-service
+                port:
+                  number: 5001
+          - path: /api/payment/create/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payment-service
+                port:
+                  number: 5002
+          - path: /api/pdf-convert/create/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: pdf-converter-service
+                port:
+                  number: 5003
+          - path: /api/reservation/create/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: reservation-service
+                port:
+                  number: 5004
+          - path: /metrics
+            pathType: Prefix
+            backend:
+              service:
+                name: query-service # Update this to the appropriate service name
+                port:
+                  number: 5000 # Update this to the appropriate port
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-service
+                port:
+                  number: 3000
