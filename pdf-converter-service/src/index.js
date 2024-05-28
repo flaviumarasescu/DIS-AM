@@ -1,5 +1,3 @@
-// const {TICKET_API_URL} = require('./URLs')
-
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
@@ -8,7 +6,6 @@ const fs = require('fs');
 
 const router = require('./routes');
 const amqp = require('amqplib');
-const { log } = require('console');
 
 const app = express();
 
@@ -47,7 +44,6 @@ const Startup = async () => {
         doc.text(
           'Hello, this is a dynamic PDF generated using Node.js and pdfkit!'
         );
-        // Add more dynamic content as needed
 
         doc.on('data', buffers.push.bind(buffers));
         doc.on('end', () => {

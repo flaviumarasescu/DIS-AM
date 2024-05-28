@@ -1,4 +1,3 @@
-// const {TICKET_API_URL} = require('./URLs')
 const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
@@ -16,17 +15,11 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
-// app.use('/api', router);
 
 const Startup = async () => {
   try {
     const database = await mongoose.connect(
-      'mongodb://concert-mongo-service:27017/payment',
-      {
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true
-        // useCreateIndex: true
-      }
+      'mongodb://concert-mongo-service:27017/payment'
     );
     console.log(
       'connected to mongo payment!!!',
@@ -53,8 +46,7 @@ const Startup = async () => {
       async (msg) => {
         const request = JSON.parse(msg.content.toString());
         const { payment_data, concert_data, concert_id } = request;
-        // console.log('in payment fff, paymentData', payment_data);
-        // console.log('req.body payment!', request);
+        // console.log('paymentData', payment_data);
         // Save in db
         const newPayment = new PaymentModel({
           concert_id: new mongoose.Types.ObjectId(concert_id),

@@ -1,6 +1,3 @@
-// const {TICKET_API_URL} = require('./URLs')
-
-// const bodyParser = require('body-parser')
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -10,8 +7,6 @@ const ReservationModel = require('./models/reservation');
 
 const app = express();
 
-// app.use(express.urlencoded({extended: false}))
-// app.use(bodyParser.json())
 app.use(express.json());
 app.use('/api', router);
 
@@ -50,7 +45,7 @@ const Startup = async () => {
         const request = JSON.parse(msg.content.toString());
 
         const { concert_id, concert_data } = request;
-        // console.log('in reservation concert_data', concert_data);
+        // console.log('concert_data', concert_data);
         const newReservation = new ReservationModel({
           concert_id,
           ...concert_data,
