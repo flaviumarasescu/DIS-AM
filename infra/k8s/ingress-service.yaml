@@ -45,13 +45,6 @@ spec:
                 name: reservation-service
                 port:
                   number: 5004
-          - path: /metrics
-            pathType: Prefix
-            backend:
-              service:
-                name: query-service # Update this to the appropriate service name
-                port:
-                  number: 5000 # Update this to the appropriate port
           - path: /?(.*)
             pathType: Prefix
             backend:

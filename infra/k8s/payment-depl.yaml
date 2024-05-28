@@ -31,20 +31,3 @@ spec:
       protocol: TCP
       port: 5002
       targetPort: 5002
----
-# apiVersion: monitoring.coreos.com/v1
-# kind: ServiceMonitor
-# metadata:
-#   name: payment-monitor
-#   labels:
-#     release: prometheus
-#     app: prometheus
-# spec:
-#   jobLabel: payment
-#   selector:
-#     matchLabels:
-#       app: payment
-#   endpoints:
-#     - interval: 30s
-#       port: payment
-#       path: /metrics
